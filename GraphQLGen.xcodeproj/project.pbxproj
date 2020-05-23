@@ -13,8 +13,11 @@
 		FA2A7EB7247791CA00836FF4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA2A7EB6247791CA00836FF4 /* Preview Assets.xcassets */; };
 		FA2A7EBA247791CA00836FF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA2A7EB8247791CA00836FF4 /* Main.storyboard */; };
 		FA2A7EC6247791CA00836FF4 /* GraphQLGenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A7EC5247791CA00836FF4 /* GraphQLGenTests.swift */; };
-		FA2A7ED2247791E600836FF4 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A7ED1247791E600836FF4 /* Extensions.swift */; };
+		FA2A7ED2247791E600836FF4 /* AppExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A7ED1247791E600836FF4 /* AppExtensions.swift */; };
 		FA2A7ED5247791EE00836FF4 /* Fragments.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2A7ED4247791EE00836FF4 /* Fragments.swift */; };
+		FAA05DA32479C9D8001060C7 /* Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA05DA22479C9D8001060C7 /* Queries.swift */; };
+		FAA05DA52479CAC9001060C7 /* GenExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA05DA42479CAC9001060C7 /* GenExtensions.swift */; };
+		FAA05DA72479E6CF001060C7 /* Mutations.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA05DA62479E6CF001060C7 /* Mutations.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,8 +42,11 @@
 		FA2A7EC1247791CA00836FF4 /* GraphQLGenTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GraphQLGenTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA2A7EC5247791CA00836FF4 /* GraphQLGenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphQLGenTests.swift; sourceTree = "<group>"; };
 		FA2A7EC7247791CA00836FF4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FA2A7ED1247791E600836FF4 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		FA2A7ED1247791E600836FF4 /* AppExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppExtensions.swift; sourceTree = "<group>"; };
 		FA2A7ED4247791EE00836FF4 /* Fragments.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fragments.swift; sourceTree = "<group>"; };
+		FAA05DA22479C9D8001060C7 /* Queries.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queries.swift; sourceTree = "<group>"; };
+		FAA05DA42479CAC9001060C7 /* GenExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenExtensions.swift; sourceTree = "<group>"; };
+		FAA05DA62479E6CF001060C7 /* Mutations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutations.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,7 +121,7 @@
 		FA2A7ED0247791E600836FF4 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				FA2A7ED1247791E600836FF4 /* Extensions.swift */,
+				FA2A7ED1247791E600836FF4 /* AppExtensions.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -123,7 +129,10 @@
 		FA2A7ED3247791EE00836FF4 /* Generators */ = {
 			isa = PBXGroup;
 			children = (
+				FAA05DA42479CAC9001060C7 /* GenExtensions.swift */,
 				FA2A7ED4247791EE00836FF4 /* Fragments.swift */,
+				FAA05DA62479E6CF001060C7 /* Mutations.swift */,
+				FAA05DA22479C9D8001060C7 /* Queries.swift */,
 			);
 			path = Generators;
 			sourceTree = "<group>";
@@ -229,9 +238,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAA05DA32479C9D8001060C7 /* Queries.swift in Sources */,
+				FAA05DA52479CAC9001060C7 /* GenExtensions.swift in Sources */,
 				FA2A7EB2247791C900836FF4 /* ContentView.swift in Sources */,
 				FA2A7ED5247791EE00836FF4 /* Fragments.swift in Sources */,
-				FA2A7ED2247791E600836FF4 /* Extensions.swift in Sources */,
+				FA2A7ED2247791E600836FF4 /* AppExtensions.swift in Sources */,
+				FAA05DA72479E6CF001060C7 /* Mutations.swift in Sources */,
 				FA2A7EB0247791C900836FF4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

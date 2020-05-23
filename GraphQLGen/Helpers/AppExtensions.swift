@@ -36,8 +36,12 @@ extension String {
     }
 
     /// Tries to save string as a file with an extension
-    func save(extensionn: String) {
+    func save(fileName: String, extensionn: String) {
         let savePanel = NSSavePanel()
+
+        savePanel.nameFieldLabel = "Name your \(fileName) file"
+        savePanel.nameFieldStringValue = fileName
+
         if savePanel.runModal() == .OK {
             guard let directory = savePanel.directoryURL else { return }
             do {

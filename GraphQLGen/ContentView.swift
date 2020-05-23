@@ -18,8 +18,7 @@ struct ContentView: View {
                 let openPanel = NSOpenPanel()
                 if openPanel.runModal() == .OK {
                     guard let input = openPanel.directoryURL?.contentsOfFile() else { return }
-                    let fragments = FragmentGenerator().generateFragments(for: input, suffix: self.suffix.stripped)
-                    fragments.save(extensionn: ".graphql")
+                    self.generate(input: input)
                 }
             }) {
                 VStack {
@@ -49,6 +48,23 @@ struct ContentView: View {
         }
         .onDrop(of: [(kUTTypeFileURL as String)], delegate: self)
     }
+
+    private func generate(input: String) {
+        let fragmentSuffix = suffix.stripped
+
+        let fragmentGenerator = FragmentGenerator(fragmentSuffix:  fragmentSuffix)
+        let fragmentsOutput = fragmentGenerator.generateFragments(for: input)
+
+        let queryGenerator = QueryGenerator(declaredFragments: fragmentGenerator.declaredFragments, fragmentSuffix: fragmentSuffix)
+        let queriesOutput = queryGenerator.generateQueries(for: input)
+
+        let mutationGenerator = MutationGenerator(declaredFragments: fragmentGenerator.declaredFragments, fragmentSuffix: fragmentSuffix)
+        let mutationsOutput = mutationGenerator.generateMutations(for: input)
+
+        fragmentsOutput.save(fileName: "Fragments", extensionn: ".graphql")
+        queriesOutput.save(fileName: "Queries", extensionn: ".graphql")
+        mutationsOutput.save(fileName: "Mutations", extensionn: ".graphql")
+    }
 }
 
 extension ContentView: DropDelegate {
@@ -59,8 +75,7 @@ extension ContentView: DropDelegate {
             guard let data = item as? Data, let url = URL(dataRepresentation: data, relativeTo: nil) else { return }
             DispatchQueue.main.async {
                 let input = url.contentsOfFile()
-                let fragments = FragmentGenerator().generateFragments(for: input, suffix: self.suffix.stripped)
-                fragments.save(extensionn: ".graphql")
+                self.generate(input: input)
             }
         }
 

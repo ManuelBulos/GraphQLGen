@@ -51,17 +51,21 @@ import Foundation
  }
  */
 
-extension Array where Element == String {
-    /// Returns a collection of indexes that contain a string
-    func indexes(of element: String) -> [Int] {
-        return self.enumerated().filter({ $0.element.contains(element) }).map({ $0.offset })
-    }
-}
-
 /// Helper that returns a collection of fragments from a given SDL file (schema.graphql)
-struct FragmentGenerator {
+class FragmentGenerator {
+
+    let fragmentSuffix: String
+
+    // helps us store all fragment names (fragmentName + suffix)
+    private(set) var declaredFragments: [String]
+
+    init(fragmentSuffix: String) {
+        self.fragmentSuffix = fragmentSuffix
+        self.declaredFragments = [String]()
+    }
+
     /// Needs a non-empty suffix or it will malfunction with the Apollo client for iOS
-    func generateFragments(for input: String, suffix: String = "Fragment") -> String {
+    func generateFragments(for input: String) -> String {
 
         // get each line in an array
         let lines = input.components(separatedBy: "\n")
@@ -80,9 +84,6 @@ struct FragmentGenerator {
         // ignoring enums, mutations, and queries
         var typePairs = Array<Zip2Sequence<[Int], [Int]>.Element>()
 
-        // helps us store all fragment names (fragmentName + suffix)
-        var declaredFragments = [String]()
-
         // iterate through all pairs to populate "typePairs" array
         for pair in pairs {
             let startIndex = pair.0
@@ -99,7 +100,7 @@ struct FragmentGenerator {
             } else if isType {
                 // store the object type
                 typePairs.append(pair)
-                declaredFragments.append(fragmentName + suffix)
+                declaredFragments.append(fragmentName + fragmentSuffix)
             }
         }
 
@@ -115,7 +116,7 @@ struct FragmentGenerator {
             let type = lines[startIndex...endIndex].joined(separator: "\n")
 
             // if fragment is created successfully, we add it to the generatedFragments array
-            if let fragment = generateFragment(for: type, suffix: suffix, declaredFragments: declaredFragments) {
+            if let fragment = generateFragment(for: type, fragmentSuffix: fragmentSuffix, declaredFragments: declaredFragments) {
                 generatedFragments.append("\(fragment)\n")
             }
         }
@@ -125,7 +126,7 @@ struct FragmentGenerator {
     }
 
     /// Create a fragment from a given object type (string block)
-    private func generateFragment(for type: String, suffix: String, declaredFragments: [String]) -> String? {
+    private func generateFragment(for type: String, fragmentSuffix: String, declaredFragments: [String]) -> String? {
         // check string contains type
         guard type.hasPrefix("type") else { return nil }
 
@@ -136,7 +137,7 @@ struct FragmentGenerator {
         guard let typeName = lines.first?.components(separatedBy: " ")[1] else { return nil }
 
         // create new fragment
-        let fragmentName = typeName + suffix
+        let fragmentName = typeName + fragmentSuffix
 
         // get properties by removing type / fragment definition and last '}'
         let properties = lines.dropFirst().dropLast()
@@ -155,7 +156,7 @@ struct FragmentGenerator {
 
             // returns the fragment name if the property TYPE is the same
             let frag = declaredFragments.first { (declaredFragment) -> Bool in
-                let fragmentToType = declaredFragment.replacingOccurrences(of: suffix, with: "")
+                let fragmentToType = declaredFragment.replacingOccurrences(of: fragmentSuffix, with: "")
 
                 return fragmentToType ==
                     propertyType
