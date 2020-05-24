@@ -11,14 +11,15 @@ MacOS app written in SwiftUI, Generates Fragments, Queries and Mutations from a 
 
 Download your schemas with 'update_schemas.command' file
 ------
+This script just helps automating the process of running two apollo client commands on the terminal.
+**It's not required for the app to work.**
+
 1. To use this script **make sure you have the apollo package installed**
 `npm install -g apollo`
 
 2. Update the endpoint variable inside the file
 
 3. Double click it to download both the schema.json and the schema.graphql file
-
-This script helps automate the process of running two apollo client commands on the terminal, it's independent from the app.
 
 Issues
 ------
