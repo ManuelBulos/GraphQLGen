@@ -102,6 +102,11 @@ struct MutationGenerator {
 
     /// Create a mutation from a given mutation type (string block)
     private func generateMutation(for mutationDefinition: String) -> String? {
+        // prevents mutation creation if its just a comment
+        if mutationDefinition.contains("\"\"\"") {
+            return mutationDefinition.fromSchemaCommentToFragmentComment
+        }
+
         // separate mutation between name, arguments, and result type
         let components = mutationDefinition.components(separatedBy: ": ")
 

@@ -131,7 +131,9 @@ class FragmentGenerator {
         guard type.hasPrefix("type") else { return nil }
 
         // separate string by linebreaks
-        let lines = type.components(separatedBy: "\n")
+        let lines = type
+            .components(separatedBy: "\n")
+            .compactMap{ return $0.contains("\"\"\"") ?  "  \($0.fromSchemaCommentToFragmentComment)" : $0 }
 
         // get type name
         guard let typeName = lines.first?.components(separatedBy: " ")[1] else { return nil }

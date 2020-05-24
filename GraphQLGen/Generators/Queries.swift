@@ -100,6 +100,11 @@ struct QueryGenerator {
 
     /// Create a query from a given query type (string block)
     private func generateQuery(for queryDefinition: String) -> String? {
+        // prevents query creation if its just a comment
+        if queryDefinition.contains("\"\"\"") {
+            return queryDefinition.fromSchemaCommentToFragmentComment
+        }
+
         // separate query between name, arguments, and result type
         let components = queryDefinition.components(separatedBy: ": ")
 
