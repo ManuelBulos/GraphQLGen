@@ -36,5 +36,11 @@
 	<true/>
 	<key>NSFileProviderDomainUsageDescription</key>
 	<string>Access to the file is needed in order for the app to create the output files</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>Access to the file is needed in order for the app to create the output files</string>
+	<key>NSDesktopFolderUsageDescription</key>
+	<string>Access to the file is needed in order for the app to create the output files</string>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Access to the file is needed in order for the app to create the output files</string>
 </dict>
 </plist>
