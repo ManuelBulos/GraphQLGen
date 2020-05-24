@@ -1,6 +1,10 @@
 # GraphQLGen
 Mac app written in SwiftUI, Generates Fragments, Queries and Mutations from a given GraphQL SDL file
 
+<p align="center">
+  <img src="https://github.com/ManuelBulos/GraphQLGen/blob/master/GraphQLGen/Assets.xcassets/AppIcon.appiconset/256-1.png" alt="AppIcon"/>
+</p>
+
 Issues
 ------
 
