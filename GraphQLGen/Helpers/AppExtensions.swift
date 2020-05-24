@@ -45,7 +45,7 @@ extension String {
         if savePanel.runModal() == .OK {
             guard let directory = savePanel.directoryURL else { return }
             do {
-                try data(using: .utf8)?.write(to: directory.path, name: savePanel.nameFieldStringValue + extensionn)
+                try data(using: .utf8)?.write(to: directory, name: savePanel.nameFieldStringValue + extensionn)
             } catch {
                 NSAlert(error: error).runModal()
             }
@@ -53,16 +53,41 @@ extension String {
     }
 
     var stripped: String {
-        let okayChars = Set("abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890_")
+        let okayChars = Set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890_")
         return self.filter {okayChars.contains($0) }
     }
 }
 
 extension Data {
     /// Tries to save data into a given directory using a given name and extension
-    func write(to directory: String, name: String) throws {
-        let filePath: NSString = "file://\(directory)" as NSString
-        guard let pathURL: URL = URL(string: filePath.appendingPathComponent(name)) else { return }
-        try self.write(to: pathURL)
+    func write(to directory: URL, name: String) throws {
+        let filePath = directory.appendingPathComponent(name)
+
+        "rm \(filePath.absoluteString)".runAsCommand()
+
+        do {
+            try self.write(to: filePath, options: .atomic)
+        } catch {
+            NSAlert(error: error).runModal()
+        }
+    }
+}
+
+extension String {
+    @discardableResult
+    func runAsCommand() -> String {
+        let pipe = Pipe()
+        let task = Process()
+        task.launchPath = "/bin/sh"
+        task.arguments = ["-c", String(format:"%@", self)]
+        task.standardOutput = pipe
+        let file = pipe.fileHandleForReading
+        task.launch()
+        if let result = NSString(data: file.readDataToEndOfFile(), encoding: String.Encoding.utf8.rawValue) {
+            return result as String
+        }
+        else {
+            return "--- Error running command - Unable to initialize string from file data ---"
+        }
     }
 }
