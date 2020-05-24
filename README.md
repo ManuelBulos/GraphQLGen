@@ -1,9 +1,24 @@
 # GraphQLGen
-Mac app written in SwiftUI, Generates Fragments, Queries and Mutations from a given GraphQL SDL file
+MacOS app written in SwiftUI, Generates Fragments, Queries and Mutations from a given GraphQL SDL file
 
 <p align="center">
   <img src="https://github.com/ManuelBulos/GraphQLGen/blob/master/GraphQLGen/Assets.xcassets/AppIcon.appiconset/256-1.png" alt="AppIcon"/>
 </p>
+
+<p align="center">
+  <img src="https://github.com/ManuelBulos/GraphQLGen/blob/master/screenshot-1.png" alt="AppIcon"/>
+</p>
+
+Download your schemas with 'update_schemas.command' file
+------
+1. To use this script **make sure you have the apollo package installed**
+`npm install -g apollo`
+
+2. Update the endpoint variable inside the file
+
+3. Double click it to download both the schema.json and the schema.graphql file
+
+This script helps automate the process of running two apollo client commands on the terminal, it's independent from the app.
 
 Issues
 ------
