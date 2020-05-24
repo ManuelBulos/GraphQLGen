@@ -52,6 +52,7 @@ extension String {
         }
     }
 
+    /// Returns the same string with the allowed characters only
     var stripped: String {
         let okayChars = Set("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLKMNOPQRSTUVWXYZ1234567890_")
         return self.filter {okayChars.contains($0) }

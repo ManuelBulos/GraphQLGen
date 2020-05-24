@@ -51,6 +51,8 @@ import Foundation
  }
  */
 
+// TODO: - Catch recursiveness and properties with inputs
+
 /// Helper that returns a collection of fragments from a given SDL file (schema.graphql)
 class FragmentGenerator {
 
@@ -128,7 +130,7 @@ class FragmentGenerator {
     /// Create a fragment from a given object type (string block)
     private func generateFragment(for type: String, fragmentSuffix: String, declaredFragments: [String]) -> String? {
         // check string contains type
-        guard type.hasPrefix("type") else { return nil }
+        guard type.hasPrefix("type") || type.hasPrefix("interface") else { return nil }
 
         // separate string by linebreaks
         let lines = type
